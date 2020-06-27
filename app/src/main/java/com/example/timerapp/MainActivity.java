@@ -5,18 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
-
 import java.util.Locale;
-import java.util.Timer;
 
 public class MainActivity extends AppCompatActivity {
-    private TextView timerView;
     private int seconds = 0;
     private boolean running;
-
-    private boolean wasRunning;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,10 +22,7 @@ public class MainActivity extends AppCompatActivity {
                     .getInt("seconds");
             running
                     = savedInstanceState
-                    .getBoolean("running");/*
-            wasRunning
-                    = savedInstanceState
-                    .getBoolean("wasRunning");*/
+                    .getBoolean("running");
         }
         runTimer();
 
@@ -43,28 +34,8 @@ public class MainActivity extends AppCompatActivity {
         savedInstanceState
                 .putInt("seconds", seconds);
         savedInstanceState
-                .putBoolean("running", running);/*
-        savedInstanceState
-                .putBoolean("wasRunning", wasRunning);*/
+                .putBoolean("running", running);
     }
-
-    @Override
-    protected void onPause()
-    {
-        super.onPause();
-        wasRunning = running;
-        running = false;
-    }
-
-    @Override
-    protected void onResume()
-    {
-        super.onResume();
-        if (wasRunning) {
-            running = true;
-        }
-    }
-
     public void onClickStart(View view)
     {
         running = true;
@@ -75,15 +46,10 @@ public class MainActivity extends AppCompatActivity {
         running = false;
         seconds = 0;
     }
-   /* public void onClickReset(View view)
-    {
-        running = false;
-
-    }*/
     private void runTimer()
     {
         final TextView timeView
-                = (TextView)findViewById(
+                = findViewById(
                 R.id.timer);
 
         final Handler handler
